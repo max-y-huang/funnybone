@@ -3,5 +3,6 @@
 
 data/
 output.json
+output.db
 *.words
 out.html

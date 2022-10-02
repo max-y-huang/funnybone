@@ -1,33 +1,51 @@
+import sqlite3
+import requests
+import json
 import streamlit as st
-import os
+
 
 _CSS_SRC = "styles/rank_similar_words_streamlit.css"
-_COMPONENT_KEYS = ["snd", "scatc", "clq", "inslt", "juxt", "sexc"]
+_ASPECT_KEYS = ["overall", "snd", "scatc", "clq", "inslt", "juxt", "sexc"]
 
 
-def format_to_li(word, is_error=False):
-    return f'<li style="color: {"#f00" if is_error else "#000"}">{word}</li>'
-
-
-def format_words_to_html(words):
-    ranked = list(map(lambda w: format_to_li(w), words["rankings"]))
-    unranked = list(map(lambda w: format_to_li(w, True), words["unranked"]))
+def format_words_to_html(ranked_terms, unranked_terms):
+    ranked = list(map(lambda t: f"<li>{t}</li>", ranked_terms))
+    unranked = list(map(lambda t: f'<li style="color: #f00">{t}</li>', unranked_terms))
     return "\n".join(ranked + unranked)
 
 
-def app():
+def get_rankings(db, term, aspect):
+    response_API = requests.get(f"https://api.datamuse.com/words?ml={term}")
+    similar_terms = [item["word"].lower() for item in json.loads(response_API.text)]
+
+    c = db.cursor()
+    c.execute(
+        f'SELECT * FROM terms WHERE term IN ({", ".join("?" * len(similar_terms))})',
+        similar_terms,
+    )
+
+    ratings = {
+        item[0]: {key: item[i] for i, key in enumerate(_ASPECT_KEYS, start=1)}
+        for item in c.fetchall()
+    }
+
+    unranked_terms = list(filter(lambda t: not (t in ratings), similar_terms))
+    ranked_terms = list(filter(lambda t: t in ratings, similar_terms))
+    ranked_terms = sorted(ranked_terms, key=lambda t: ratings[t][aspect], reverse=True)
+    return (ranked_terms, unranked_terms)
+
+
+if __name__ == "__main__":
+    db = sqlite3.connect("output.db")
     st.title("Rank similar terms")
 
-    term = st.text_input("Term to rank").lower()
-    aspect = st.selectbox("Sort aspect", ["overall"] + _COMPONENT_KEYS)
+    term = st.text_input("Term to rank")
+    aspect = st.selectbox("Sort aspect", _ASPECT_KEYS)
 
     if term and aspect:
-        script = (
-            f'python3 scripts/rank_similar_words.py --term "{term}" --aspect "{aspect}"'
-        )
-        words = eval(os.popen(script).read().strip())
+        ranked_terms, unranked_terms = get_rankings(db, term, aspect)
         fs_out = open("out.html", "w")
-        if not words["rankings"]:
+        if not ranked_terms:
             st.text("Sorry, we don't have data for that word")
         else:
             html = f"""
@@ -35,12 +53,8 @@ def app():
                     {open(_CSS_SRC).read()}
                 </style>
                 <div class="container">
-                    <ol>{format_words_to_html(words)}</ol>
+                    <ol>{format_words_to_html(ranked_terms, unranked_terms)}</ol>
                 </div>
             """
             print(html, file=fs_out)
             st.components.v1.html(html, height=400)
-
-
-if __name__ == "__main__":
-    app()
