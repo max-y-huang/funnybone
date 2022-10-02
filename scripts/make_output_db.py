@@ -15,10 +15,12 @@ if __name__ == "__main__":
     )
     c.execute("CREATE INDEX IF NOT EXISTS index1 ON terms (term)")
     c.execute("DELETE FROM terms")
+
     with open("output.json", "r") as f:
         data = json.load(f)
         for key, val in data.items():
             row = [key] + [val[k] for k in _ASPECT_KEYS]
             c.execute("INSERT INTO terms VALUES (?, ?, ?, ?, ?, ?, ?, ?)", row)
+
     conn.commit()
     conn.close()

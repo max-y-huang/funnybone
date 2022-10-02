@@ -1,5 +1,7 @@
 # Humour Rating
 
+Based on [Cockamamie Gobbledegook](https://github.com/limorigu/Cockamamie-Gobbledegook).
+
 Finds the humour scores of various words (both overall and in the 6 subcategories).
 
 ## Instructions
@@ -10,10 +12,10 @@ Finds the humour scores of various words (both overall and in the 6 subcategorie
 
 ### Data Sources
 
-- Word vectors: `wiki-news-300d-1M-subword.vec.zip` from https://fasttext.cc/docs/en/english-vectors.html
-- Cockamamie Gobbledegook data: https://github.com/limorigu/Cockamamie-Gobbledegook/blob/master/data/cockamamie_gobbledegook_us_data.json
-- EH data: https://github.com/tomasengelthaler/HumorNorms/blob/master/humor_dataset.csv
-- Datamuse data: https://drive.google.com/file/d/1qKyssIf0b8xoifxujPoU8TExWY8bH2jx/view?usp=sharing
+- [Word vectors](https://fasttext.cc/docs/en/english-vectors.html) (download `wiki-news-300d-1M-subword.vec.zip`)
+- [Cockamamie Gobbledegook data](https://github.com/limorigu/Cockamamie-Gobbledegook/blob/master/data/cockamamie_gobbledegook_us_data.json)
+- [EH data](https://github.com/tomasengelthaler/HumorNorms/blob/master/humor_dataset.csv)
+- [Datamuse data](https://drive.google.com/file/d/1qKyssIf0b8xoifxujPoU8TExWY8bH2jx/view?usp=sharing)
 
 ## Scripts
 
@@ -27,9 +29,11 @@ Finds the humour scores of various words (both overall and in the 6 subcategorie
   - Requires `output.db`.
 - `streamlit run scripts/rank_similar_terms.py`
   - A streamlit app that retrieves similar terms and ranks them by an aspect of humour (descending).
-  - Requires `output.db`
+  - Terms that are not rated are in red.
+  - Requires `output.db`.
 
 ## Known Problems
 
 - Not all words from `scripts/rank_similar_terms.py` get rated.
-  - Casing problem.
+  - Casing problem: api.datamuse.com returns terms in lowercase (e.g. [this](https://api.datamuse.com/words?ml=intercontinental%20ballistic%20missile) returns "icbm" instead of "ICBM").
+  - Can be fixed by storing words in `output.json` in lowercase.
