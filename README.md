@@ -22,6 +22,6 @@ Run `main.ipynb` as deescribed in that file.
 - `./scripts/generate_ordered_list.sh <ASPECT> <OUTPUT_FILE>`
   - Outputs a list ordered by `<ASPECT>` (descending) to `<OUTPUT_FILE>`.
   - Requires `output.json`.
-- `streamlit run scripts/rank_similar_words_streamlit.py`
-  - A streamlit app that retrieves similar words and ranks them by an aspect of humour (descending).
+- `streamlit run scripts/rank_similar_terms.py`
+  - A streamlit app that retrieves similar terms and ranks them by an aspect of humour (descending).
   - Requires `output.db`

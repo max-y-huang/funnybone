@@ -4,7 +4,7 @@ import json
 import streamlit as st
 
 
-_CSS_SRC = "styles/rank_similar_words_streamlit.css"
+_CSS_SRC = "styles/rank_similar_terms.css"
 _ASPECT_KEYS = ["overall", "snd", "scatc", "clq", "inslt", "juxt", "sexc"]
 
 
