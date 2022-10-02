@@ -19,9 +19,9 @@ Run `main.ipynb` as deescribed in that file.
 - `python3 scripts/make_output_db.py`
   - Creates `output.db`.
   - Requires `output.json`.
-- `./scripts/generate_ordered_list.sh <ASPECT> <OUTPUT_FILE>`
+- `python3 scripts/generate_ordered_list.py --aspect <ASPECT> --output_file <OUTPUT_FILE>`
   - Outputs a list ordered by `<ASPECT>` (descending) to `<OUTPUT_FILE>`.
-  - Requires `output.json`.
+  - Requires `output.db`.
 - `streamlit run scripts/rank_similar_terms.py`
   - A streamlit app that retrieves similar terms and ranks them by an aspect of humour (descending).
   - Requires `output.db`

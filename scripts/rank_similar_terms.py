@@ -4,6 +4,7 @@ import json
 import streamlit as st
 
 
+_DB_SRC = "output.db"
 _CSS_SRC = "styles/rank_similar_terms.css"
 _ASPECT_KEYS = ["overall", "snd", "scatc", "clq", "inslt", "juxt", "sexc"]
 
@@ -36,7 +37,8 @@ def get_rankings(db, term, aspect):
 
 
 if __name__ == "__main__":
-    db = sqlite3.connect("output.db")
+
+    db = sqlite3.connect(_DB_SRC)
     st.title("Rank similar terms")
 
     term = st.text_input("Term to rank")
