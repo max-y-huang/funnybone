@@ -1,0 +1,13 @@
+.container {
+  background-color: #fff;
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 1em;
+  box-sizing: border-box;
+  font-family: monospace;
+  column-count: 3;
+}
+.container > ol {
+  margin-top: 0;
+  margin-bottom: 0;
+}

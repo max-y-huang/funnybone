@@ -9,9 +9,12 @@ import json
 
 def sort_func(word, ratings):
     word = word.lower()
-    if not word in ratings:
-        return -1
     return ratings[word][args.aspect]
+
+
+def filter_func(word, ratings):
+    word = word.lower()
+    return word in ratings
 
 
 if __name__ == "__main__":
@@ -35,10 +38,12 @@ if __name__ == "__main__":
     words = [item["word"] for item in json.loads(response_API.text)]
     with open("output.json", "r") as f:
         ratings = json.load(f)
+        removed_words = list(filter(lambda x: not filter_func(x, ratings), words))
+        words = list(filter(lambda x: filter_func(x, ratings), words))
         sorted_words = sorted(
             words,
             key=lambda x: sort_func(x, ratings),
             reverse=True,
         )
 
-    print(sorted_words)
+    print({"rankings": sorted_words, "unranked": removed_words})
