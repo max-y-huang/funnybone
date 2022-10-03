@@ -10,8 +10,13 @@ _ASPECT_KEYS = ["overall", "snd", "scatc", "clq", "inslt", "juxt", "sexc"]
 
 
 def format_words_to_html(ranked_terms, unranked_terms):
-    ranked = list(map(lambda t: f"<li>{t}</li>", ranked_terms))
-    unranked = list(map(lambda t: f'<li style="color: #f00">{t}</li>', unranked_terms))
+    ranked = list(map(lambda t: f'<li>{t.replace("_", " ")}</li>', ranked_terms))
+    unranked = list(
+        map(
+            lambda t: f'<li style="color: #f00">{t.replace("_", " ")}</li>',
+            unranked_terms,
+        )
+    )
     return "\n".join(ranked + unranked)
 
 
