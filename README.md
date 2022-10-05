@@ -13,7 +13,7 @@ Finds the humour scores of various words (both overall and in the 6 subcategorie
 ### Extra Data Sources
 
 - [Word vectors](https://fasttext.cc/docs/en/english-vectors.html) (download `wiki-news-300d-2M-subword.vec.zip`)
-<!-- - [Cockamamie Gobbledegook data](https://github.com/limorigu/Cockamamie-Gobbledegook/blob/master/data/cockamamie_gobbledegook_us_data.json) -->
+- [Cockamamie Gobbledegook data](https://github.com/limorigu/Cockamamie-Gobbledegook/blob/master/data/cockamamie_gobbledegook_us_data.json)
 - [EH data](https://github.com/tomasengelthaler/HumorNorms/blob/master/humor_dataset.csv)
 - [Datamuse data](https://drive.google.com/file/d/1qKyssIf0b8xoifxujPoU8TExWY8bH2jx/view?usp=sharing)
 
