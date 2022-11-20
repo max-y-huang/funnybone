@@ -9,6 +9,7 @@ jupyter = "*"
 gensim = "*"
 black = "*"
 requests = "*"
+fasttext = "*"
 
 [dev-packages]
 
