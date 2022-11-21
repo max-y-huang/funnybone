@@ -5,7 +5,6 @@ import streamlit as st
 
 
 _DB_SRC = "output.db"
-_CSS_SRC = "styles/rank_similar_terms.css"
 _ASPECT_KEYS = ["overall", "snd", "scatc", "clq", "inslt", "juxt", "sexc"]
 
 
@@ -21,10 +20,10 @@ def format_words_to_html(ranked_terms, unranked_terms):
 
 
 def get_rankings(db, term, aspect):
-    # response_API = requests.get(f"https://api.datamuse.com/words?ml={term}")
-    with open("similar_to_apple.json") as f:
-        response_API = json.load(f)
-    similar_terms = [item["word"].lower().replace(" ", "_") for item in response_API]
+    response_API = requests.get(f"https://api.datamuse.com/words?ml={term}")
+    similar_terms = [
+        item["word"].lower().replace(" ", "_") for item in json.loads(response_API.text)
+    ]
 
     c = db.cursor()
     c.execute(
@@ -58,9 +57,6 @@ if __name__ == "__main__":
             st.text("Sorry, we don't have data for that word")
         else:
             html = f"""
-                <style>
-                    {open(_CSS_SRC).read()}
-                </style>
                 <div class="container">
                     <ol>{format_words_to_html(ranked_terms, unranked_terms)}</ol>
                 </div>
