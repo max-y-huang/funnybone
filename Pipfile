@@ -4,12 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sklearn = "*"
 jupyter = "*"
-gensim = "*"
 black = "*"
 requests = "*"
 fasttext = "*"
+scikit-learn = "*"
 
 [dev-packages]
 

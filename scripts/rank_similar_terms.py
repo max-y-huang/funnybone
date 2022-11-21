@@ -21,10 +21,10 @@ def format_words_to_html(ranked_terms, unranked_terms):
 
 
 def get_rankings(db, term, aspect):
-    response_API = requests.get(f"https://api.datamuse.com/words?ml={term}")
-    similar_terms = [
-        item["word"].lower().replace(" ", "_") for item in json.loads(response_API.text)
-    ]
+    # response_API = requests.get(f"https://api.datamuse.com/words?ml={term}")
+    with open("similar_to_apple.json") as f:
+        response_API = json.load(f)
+    similar_terms = [item["word"].lower().replace(" ", "_") for item in response_API]
 
     c = db.cursor()
     c.execute(
