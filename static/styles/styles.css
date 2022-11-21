@@ -169,6 +169,10 @@ body {
   transform: rotate(1deg);
 }
 
+.results .help-text::before {
+  content: "Search for funny related terms.";
+}
+
 .results .error::before {
   content: "Whoops! Not enough results for \201C";
 }

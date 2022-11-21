@@ -53,6 +53,8 @@
           {% endfor %}
         </ul>
       </div>
+      {% elif not query %}
+      <div class="help-text"></div>
       {% else %}
       <div class="error">{{query if query else ''}}</div>
       {% endif %}
