@@ -2,7 +2,6 @@
 .ipynb_checkpoints/
 
 data/*
-!data/cockamamie_gobbledegook_us_data.json
 output.json
 output.db
 *.words
