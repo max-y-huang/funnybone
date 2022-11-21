@@ -61,4 +61,4 @@ def get_rankings(db, term, aspect="overall"):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=8080)
