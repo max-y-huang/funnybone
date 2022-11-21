@@ -9,6 +9,7 @@ black = "*"
 requests = "*"
 fasttext = "*"
 scikit-learn = "*"
+flask = "*"
 
 [dev-packages]
 

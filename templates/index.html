@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="{{url_for('static', filename='assets/logo_icon.ico')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/styles.css')}}"
+    />
+    <title>FunnyBone</title>
+  </head>
+  <body>
+    <div class="logo">
+      <span>FunnyBone</span>
+      <img src="{{url_for('static', filename='assets/logo_icon.svg')}}" />
+    </div>
+    <div class="search-bar">
+      <div class="search-icon">
+        <img
+          src="{{url_for('static', filename='assets/search_icon.svg')}}"
+          draggable="false"
+        />
+      </div>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search..."
+        value="{{query if query else ''}}"
+        onkeyup="handleSearch(this)"
+      />
+    </div>
+    <div class="results">
+      {% if not error %}
+      <div class="query">{{query}}</div>
+      <div class="funny">
+        <span class="header">Funniest</span>
+        <ul>
+          {% for term in funniest %}
+          <li>{{term}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="not-funny">
+        <span class="header">Unfunniest</span>
+        <ul>
+          {% for term in unfunniest %}
+          <li>{{term}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% else %}
+      <div class="error">{{query if query else ''}}</div>
+      {% endif %}
+    </div>
+    <script>
+      const searchInputDOM = document.querySelector("#search-input");
+      searchInputDOM.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") {
+          open(
+            `?q=${encodeURIComponent(searchInputDOM.value.trim())}`,
+            (target = "_self")
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
