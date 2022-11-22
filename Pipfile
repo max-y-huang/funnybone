@@ -10,6 +10,7 @@ requests = "*"
 fasttext = "*"
 scikit-learn = "*"
 flask = "*"
+gunicorn = "*"
 
 [dev-packages]
 
