@@ -2,6 +2,9 @@
 .ipynb_checkpoints/
 __pycache__
 
+Pipfile
+Pipfile.lock
+
 data/*
 output.json
 output.db
