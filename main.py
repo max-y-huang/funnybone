@@ -37,6 +37,11 @@ def index():
     )
 
 
+@app.route("/how-it-works", methods=["GET"])
+def how_it_works():
+    return render_template("how_it_works.html")
+
+
 def get_rankings(db, term, aspect="overall"):
     if not term:
         return ([], [])  # throws error

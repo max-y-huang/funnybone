@@ -12,6 +12,10 @@
       rel="stylesheet"
       href="{{url_for('static', filename='styles/styles.css')}}"
     />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/index.css')}}"
+    />
     <title>FunnyBone</title>
   </head>
   <body>
@@ -24,10 +28,11 @@
         />
       </div>
       <div class="motto">
-        Feel the <u style="text-decoration-style: wavy; color: red">humor</u> in
-        your bones.
+        Feel the
+        <u class="error-squiggle">humor</u>
+        in your bones.
       </div>
-      <div class="search-bar">
+      <div class="search-bar pop-out">
         <div class="search-icon">
           <img
             src="{{url_for('static', filename='assets/search_icon.svg')}}"
@@ -39,9 +44,10 @@
           id="search-input"
           placeholder="Search..."
           value="{{query if query else ''}}"
+          autocomplete="off"
         />
       </div>
-      <div class="results">
+      <div class="results pop-out">
         {% if not error %}
         <div class="query">{{query}}</div>
         <div class="funny">
@@ -74,7 +80,9 @@
               Inspiration For This
             </a>
           </li>
-          <li class="coming-soon">How It Works</li>
+          <li class="coming-soon">
+            <a href="/how-it-works">How it works</a>
+          </li>
         </ul>
       </footer>
     </div>

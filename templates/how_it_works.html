@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="{{url_for('static', filename='assets/logo_icon.ico')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/styles.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/how_it_works.css')}}"
+    />
+    <title>FunnyBone</title>
+  </head>
+  <body>
+    <div class="app">
+      <h1>How FunnyBone Works</h1>
+      <h2>Funniness Ranking</h2>
+      <p>
+        FunnyBone uses AI to determine the funniness of a word. It starts off
+        with a human reference point (i.e. a set of words whose funniness scores
+        were manually marked), then it extrapolates this data using linear
+        regression to predict the funniness of any arbitrary word. These
+        predictions are then stored in a database for quick retrieval at
+        runtime.
+      </p>
+      <p>
+        What words to predict? The set of words comes from Datamuse.
+        Incidentally, FunnyBone uses Datamuse's public API to find words that
+        are semantically related to the user's prompt &mdash; the API and the
+        database have the same vocabulary, so all possible outputs are given a
+        funiness score.
+      </p>
+      <h2>Front-end Dashboard</h2>
+      <p>
+        FunnyBone's front-end is a simple Flask app. When the page is loaded,
+        the app reads the user's prompt from the URL's query string. It then
+        finds candidate outputs using the aforementioned Datamuse API and
+        retrieves their funniness scores from the aforementioned database. The 3
+        funniest words, along with the unfunniest word, are rendered in HTML
+        using a Jinja2 template for the user to see. When the user enters a
+        prompt, the page is reloaded with the new prompt reflected in the query
+        string, repeating this process.
+      </p>
+      <p>
+        <a class="button" href="/">Back to Searching</a>
+      </p>
+    </div>
+  </body>
+</html>
