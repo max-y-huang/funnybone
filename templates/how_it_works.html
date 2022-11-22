@@ -20,37 +20,57 @@
   </head>
   <body>
     <div class="app">
-      <h1>How FunnyBone Works</h1>
-      <h2>Funniness Ranking</h2>
-      <p>
-        FunnyBone uses AI to determine the funniness of a word. It starts off
-        with a human reference point (i.e. a set of words whose funniness scores
-        were manually marked), then it extrapolates this data using linear
-        regression to predict the funniness of any arbitrary word. These
-        predictions are then stored in a database for quick retrieval at
-        runtime.
-      </p>
-      <p>
-        What words to predict? The set of words comes from Datamuse.
-        Incidentally, FunnyBone uses Datamuse's public API to find words that
-        are semantically related to the user's prompt &mdash; the API and the
-        database have the same vocabulary, so all possible outputs are given a
-        funiness score.
-      </p>
-      <h2>Front-end Dashboard</h2>
-      <p>
-        FunnyBone's front-end is a simple Flask app. When the page is loaded,
-        the app reads the user's prompt from the URL's query string. It then
-        finds candidate outputs using the aforementioned Datamuse API and
-        retrieves their funniness scores from the aforementioned database. The 3
-        funniest words, along with the unfunniest word, are rendered in HTML
-        using a Jinja2 template for the user to see. When the user enters a
-        prompt, the page is reloaded with the new prompt reflected in the query
-        string, repeating this process.
-      </p>
-      <p>
-        <a class="button" href="/">Back to Searching</a>
-      </p>
+      <div>
+        <h1>How FunnyBone Works</h1>
+        <h2>Funniness Scoring</h2>
+        <p>
+          <span class="hl">
+            FunnyBone uses AI to determine the funniness of a word. It starts
+            off with a human reference point (i.e. a set of words whose
+            funniness scores were manually marked), then it extrapolates this
+            data using linear regression to predict the funniness of any
+            arbitrary word. These predictions are then stored in a database for
+            quick retrieval at runtime.
+          </span>
+        </p>
+        <p>
+          <span class="hl">
+            What words to predict? The set of words comes from Datamuse.
+            Incidentally, FunnyBone uses Datamuse's public API to find words
+            that are semantically related to the user's prompt &mdash; the API
+            and the database have the same vocabulary, so all possible outputs
+            are given a funiness score.
+          </span>
+        </p>
+        <h2>Dashboard Web App</h2>
+        <p>
+          <span class="hl">
+            FunnyBone's back-end is a simple Flask app. When the page is loaded,
+            the app reads the user's prompt from the URL's query string. It then
+            finds candidate outputs using the aforementioned Datamuse API and
+            retrieves their funniness scores from the aforementioned database.
+            The 3 funniest words, along with the unfunniest word, are rendered
+            in HTML using a Jinja2 template as the front-end. When the user
+            enters a prompt, the page is reloaded with the new prompt reflected
+            in the query string, repeating this process.
+          </span>
+        </p>
+        <h2>Putting It Together</h2>
+        <p>
+          <span class="hl">
+            Here's a diagram of how everything fits together:
+          </span>
+        </p>
+        <p>
+          <img
+            class="flowchart pop-out"
+            src="{{url_for('static', filename='assets/flowchart.svg')}}"
+          />
+        </p>
+        <p>
+          <a class="button" href="/">Back to Searching</a>
+        </p>
+      </div>
     </div>
   </body>
 </html>

@@ -1,6 +1,20 @@
 .app {
   padding-bottom: 60px;
+  text-align: center;
+}
+
+.app > div {
   margin: 0 auto;
   max-width: 720px;
-  text-align: center;
+}
+
+.hl {
+  background-color: #fda;
+  padding: 0.2em;
+}
+
+.flowchart {
+  background-color: #f5f1f1;
+  padding: 20px;
+  width: 100%;
 }
