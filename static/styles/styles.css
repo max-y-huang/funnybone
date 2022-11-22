@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Chewy&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pangolin&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
 body {
   box-sizing: border-box;
@@ -45,7 +47,8 @@ body {
   border-radius: 20px;
   overflow: hidden;
   background-color: #f5f5f1;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Pangolin", sans-serif;
+  letter-spacing: 0.02em;
   border: 3px solid #000;
   box-shadow: 8px 8px 0 #333;
   transform: rotate(1deg);
@@ -60,7 +63,8 @@ body {
   background: none;
   color: #860;
   font-family: inherit;
-  font-size: 19px;
+  letter-spacing: inherit;
+  font-size: 22px;
 }
 .search-bar > input[type="text"]::placeholder {
   color: #888;
@@ -89,7 +93,8 @@ body {
   width: 100%;
   max-width: 360px;
   margin-top: 60px;
-  font-family: "Comic Sans MS", sans-serif;
+  font-family: "Pangolin", sans-serif;
+  letter-spacing: 0.02em;
   font-size: 24px;
   text-align: center;
   padding: 20px;
@@ -154,9 +159,9 @@ body {
 
 .results .header {
   position: relative;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 0.67em;
+  font-family: "Permanent Marker", sans-serif;
+  font-size: 0.85em;
+  letter-spacing: 0;
   user-select: none;
   -webkit-user-select: none;
   cursor: default;
@@ -167,9 +172,9 @@ body {
   position: absolute;
   bottom: -0.1em;
   left: 0;
-  width: 100%;
+  width: calc(100% - 8px);
   border-top: 2px solid currentColor;
-  transform: rotate(1deg);
+  transform: rotate(-2deg) translate(-2px, -2px);
 }
 
 .results .help-text::before {
