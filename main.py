@@ -38,6 +38,9 @@ def index():
 
 
 def get_rankings(db, term, aspect="overall"):
+    if not term:
+        return ([], [])  # throws error
+
     response_API = requests.get(f"https://api.datamuse.com/words?ml={term}")
     similar_terms = [
         item["word"].lower().replace(" ", "_") for item in json.loads(response_API.text)
