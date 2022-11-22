@@ -17,7 +17,10 @@
   <body>
     <div class="logo">
       <span>FunnyBone</span>
-      <img src="{{url_for('static', filename='assets/logo_icon.svg')}}" />
+      <img
+        src="{{url_for('static', filename='assets/logo_icon.svg')}}"
+        draggable="false"
+      />
     </div>
     <div class="search-bar">
       <div class="search-icon">
@@ -31,7 +34,7 @@
         id="search-input"
         placeholder="Search..."
         value="{{query if query else ''}}"
-        onkeyup="handleSearch(this)"
+        onkeyup="{{ update() }}"
       />
     </div>
     <div class="results">
@@ -63,10 +66,8 @@
       const searchInputDOM = document.querySelector("#search-input");
       searchInputDOM.addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
-          open(
-            `?q=${encodeURIComponent(searchInputDOM.value.trim())}`,
-            (target = "_self")
-          );
+          const query = searchInputDOM.value.trim();
+          location.replace(`?q=${encodeURIComponent(query)}`);
         }
       });
     </script>

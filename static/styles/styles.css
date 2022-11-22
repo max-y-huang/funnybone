@@ -19,6 +19,9 @@ body {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
   font-family: "Chewy", sans-serif;
   font-size: 56px;
   line-height: 1;
