@@ -43,6 +43,11 @@ def get_rankings(db, term, aspect="overall"):
         item["word"].lower().replace(" ", "_") for item in json.loads(response_API.text)
     ]
 
+    filter_words = get_filter_words()
+    similar_terms = list(filter(lambda t: not t in filter_words, similar_terms))
+    if term.lower().replace(" ", "_") in filter_words:
+        return ([], [])  # throws error
+
     c = db.cursor()
     c.execute(
         f'SELECT * FROM terms WHERE term IN ({", ".join("?" * len(similar_terms))})',
@@ -58,6 +63,11 @@ def get_rankings(db, term, aspect="overall"):
     ranked_terms = list(filter(lambda t: t in ratings, similar_terms))
     ranked_terms = sorted(ranked_terms, key=lambda t: ratings[t][aspect], reverse=True)
     return (ranked_terms, unranked_terms)
+
+
+def get_filter_words():
+    with open("filter_words.txt") as f:
+        return f.read().strip().split("\n")
 
 
 if __name__ == "__main__":
