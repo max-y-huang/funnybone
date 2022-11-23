@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="{{url_for('static', filename='assets/logo_icon.ico')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/styles.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/subpage.css')}}"
+    />
+    <title>How FunnyBone Works</title>
+  </head>
+  <body>
+    <div class="app">
+      <div>
+        <h1 class="title">
+          About
+          <div class="logo">
+            <span>FunnyBone</span>
+            <img
+              src="{{url_for('static', filename='assets/logo_icon.svg')}}"
+              draggable="false"
+            />
+          </div>
+        </h1>
+        <h2>What This Is</h2>
+        <p>
+          <span class="hl">
+            FunnyBone is an AI-powered humour search engine &mdash; it uses
+            machine learning to find funny and unfunny words that are
+            semantically similar to the given prompt. You can use it in many
+            ways: creating attention-grabbing headlines, setting a lighthearted
+            mood for a presentation, or simply adding humour to your writing.
+            Whatever the context, FunnyBone can help you to brainstorm ideas.
+          </span>
+        </p>
+        <h2>How This Came To Be</h2>
+        <p>
+          <span class="hl">
+            FunnyBone originated as a tech demo for a humour-sorting feature I
+            implemented while working at Datamuse. Written under the MIT license
+            (alongside permission from my boss), I gave the demo a new user
+            interface, which I released as FunnyBone. The finalized version of
+            the humour-sorting feature is in
+            <a href="https://onelook.com/thesaurus" target="_blank"
+              >OneLook Thesaurus</a
+            >, which offers more advanced usage of the FunnyBone feature set.
+          </span>
+        </p>
+        <h2>Credits</h2>
+        <p>
+          <span class="hl">
+            To rank the words by their funniness, I (<a
+              href="https://www.maxhuang.dev"
+              target="_blank"
+              >Max Huang</a
+            >) used techniques discussed in the NLP paper:
+            <a href="https://arxiv.org/abs/1902.02783" target="_blank">
+              Cockamamie Gobbledegook for Nincompoops</a
+            >. Doug Beeferman, my boss at
+            <a href="https://datamuse.com" target="_blank">Datamuse</a>, gave me
+            guidance and pointed me towards the resources I needed to succeed on
+            this project.</span
+          >
+        </p>
+        <p>
+          <a class="button" href="/">Back to the Main Page</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -108,7 +108,12 @@
 .results .not-funny {
   transform: rotate(-3deg);
   padding-right: 20px;
+  margin-bottom: 20px;
   text-align: right;
+}
+
+.results .more-info a {
+  color: #860;
 }
 
 .results ul {

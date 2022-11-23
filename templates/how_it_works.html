@@ -14,9 +14,9 @@
     />
     <link
       rel="stylesheet"
-      href="{{url_for('static', filename='styles/how_it_works.css')}}"
+      href="{{url_for('static', filename='styles/subpage.css')}}"
     />
-    <title>FunnyBone</title>
+    <title>How FunnyBone Works</title>
   </head>
   <body>
     <div class="app">
@@ -39,14 +39,13 @@
             off with a human reference point (i.e. a set of words whose
             funniness scores were manually marked), then it extrapolates this
             data using linear regression, a machine learning model, to predict
-            the funniness of any arbitrary word. These predictions are then
-            stored in a database for quick retrieval at runtime.
+            the funniness of any arbitrary word. The predictions are then stored
+            in a database for quick retrieval when needed.
           </span>
         </p>
         <p>
           <span class="hl">
-            What words to predict? The set of words comes from
-            <a href="https://datamuse.com" target="_blank">Datamuse</a>.
+            What words to predict? The set of words comes from Datamuse.
             Incidentally, FunnyBone uses
             <a href="https://www.datamuse.com/api/" target="_blank"
               >Datamuse's public API</a

@@ -1,6 +1,7 @@
 import sqlite3
 import requests
 import json
+import urllib.parse
 from flask import Flask, request, render_template
 
 _DB_SRC = "output.db"
@@ -17,6 +18,7 @@ def index():
     query = args.get("q", None)
     if not query or query.strip() == "":
         query = None
+    encoded_query = None if not query else urllib.parse.quote(query)
 
     # get funniest and unfunniest matches
     db = sqlite3.connect(_DB_SRC)
@@ -31,10 +33,16 @@ def index():
     return render_template(
         "index.html",
         query=query,
+        encoded_query=encoded_query,
         funniest=funniest,
         unfunniest=unfunniest,
         error=error,
     )
+
+
+@app.route("/about", methods=["GET"])
+def about():
+    return render_template("about.html")
 
 
 @app.route("/how-it-works", methods=["GET"])

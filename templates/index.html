@@ -16,7 +16,11 @@
       rel="stylesheet"
       href="{{url_for('static', filename='styles/index.css')}}"
     />
-    <title>FunnyBone</title>
+    {% if not error %}
+    <title>{{query}} | FunnyBone</title>
+    {% else %}
+    <title>FunnyBone Search Engine</title>
+    {% endif %}
   </head>
   <body>
     <div class="app">
@@ -66,6 +70,14 @@
             {% endfor %}
           </ul>
         </div>
+        <div class="more-info">
+          More info
+          <a
+            href="https://onelook.com/thesaurus/?s={{encoded_query}}&sortby=hu1"
+            target="_blank"
+            >here</a
+          >.
+        </div>
         {% elif not query %}
         <div class="help-text"></div>
         {% else %}
@@ -76,9 +88,7 @@
       <footer>
         <ul>
           <li>
-            <a href="https://arxiv.org/abs/1902.02783" target="_blank">
-              Inspiration For This</a
-            >
+            <a href="/about">About FunnyBone</a>
           </li>
           <li>
             <a href="/how-it-works">How it works</a>
