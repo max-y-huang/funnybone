@@ -21,38 +21,65 @@
   <body>
     <div class="app">
       <div>
-        <h1>How FunnyBone Works</h1>
+        <h1 class="title">
+          How
+          <div class="logo">
+            <span>FunnyBone</span>
+            <img
+              src="{{url_for('static', filename='assets/logo_icon.svg')}}"
+              draggable="false"
+            />
+          </div>
+          Works
+        </h1>
         <h2>Funniness Scoring</h2>
         <p>
           <span class="hl">
             FunnyBone uses AI to determine the funniness of a word. It starts
             off with a human reference point (i.e. a set of words whose
             funniness scores were manually marked), then it extrapolates this
-            data using linear regression to predict the funniness of any
-            arbitrary word. These predictions are then stored in a database for
-            quick retrieval at runtime.
+            data using linear regression, a machine learning model, to predict
+            the funniness of any arbitrary word. These predictions are then
+            stored in a database for quick retrieval at runtime.
           </span>
         </p>
         <p>
           <span class="hl">
-            What words to predict? The set of words comes from Datamuse.
-            Incidentally, FunnyBone uses Datamuse's public API to find words
-            that are semantically related to the user's prompt &mdash; the API
-            and the database have the same vocabulary, so all possible outputs
-            are given a funiness score.
+            What words to predict? The set of words comes from
+            <a href="https://datamuse.com" target="_blank">Datamuse</a>.
+            Incidentally, FunnyBone uses
+            <a href="https://www.datamuse.com/api/" target="_blank"
+              >Datamuse's public API</a
+            >
+            to find words that are semantically related to the user's prompt
+            &mdash; the API and the database have the same vocabulary, so all
+            possible outputs are given a funiness score.
           </span>
         </p>
-        <h2>Dashboard Web App</h2>
         <p>
           <span class="hl">
-            FunnyBone's back-end is a simple Flask app. When the page is loaded,
-            the app reads the user's prompt from the URL's query string. It then
+            The funniness scoring borrows ideas from
+            <a href="https://arxiv.org/abs/1902.02783" target="_blank">
+              Cockamamie Gobbledegook for Nincompoops</a
+            >, a NLP research paper.
+          </span>
+        </p>
+        <h2>Web App Interactions</h2>
+        <p>
+          <span class="hl">
+            The back-end for FunnyBone is a Flask app. When the page is loaded,
+            the app reads the user's prompt from the URL query string. It then
             finds candidate outputs using the aforementioned Datamuse API and
-            retrieves their funniness scores from the aforementioned database.
-            The 3 funniest words, along with the unfunniest word, are rendered
-            in HTML using a Jinja2 template as the front-end. When the user
-            enters a prompt, the page is reloaded with the new prompt reflected
-            in the query string, repeating this process.
+            retrieves their funniness scores from the database. The 3 funniest
+            words, along with the unfunniest word, are noted.
+          </span>
+        </p>
+        <p>
+          <span class="hl">
+            All necessary information is passed on to the front-end, an HTML
+            page generated through Jinja2 templating. When the user enters a
+            prompt, the page is reloaded with the new prompt reflected in the
+            query string, repeating the cycle.
           </span>
         </p>
         <h2>Putting It Together</h2>
@@ -68,7 +95,7 @@
           />
         </p>
         <p>
-          <a class="button" href="/">Back to Searching</a>
+          <a class="button" href="/">Back to the Main Page</a>
         </p>
       </div>
     </div>

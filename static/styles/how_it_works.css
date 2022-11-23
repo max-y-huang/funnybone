@@ -14,7 +14,13 @@
 }
 
 .flowchart {
-  background-color: #f5f1f1;
-  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fef8f1;
+  padding: 15px;
   width: 100%;
+}
+
+.title {
+  font-family: "Chewy", sans-serif;
+  letter-spacing: 0;
 }
