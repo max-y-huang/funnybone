@@ -36,20 +36,28 @@
         <u class="error-squiggle">humor</u>
         in your bones.
       </div>
-      <div class="search-bar pop-out">
-        <div class="search-icon">
-          <img
-            src="{{url_for('static', filename='assets/search_icon.svg')}}"
-            draggable="false"
+      <div class="search-bar-container">
+        <div class="search-bar pop-out">
+          <div class="search-icon">
+            <img
+              src="{{url_for('static', filename='assets/search_icon.svg')}}"
+              draggable="false"
+            />
+          </div>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search..."
+            value="{{query if query else ''}}"
+            autocomplete="off"
           />
         </div>
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search..."
-          value="{{query if query else ''}}"
-          autocomplete="off"
-        />
+        <button id="search-button" class="button pop-out">
+          <img
+            src="{{url_for('static', filename='assets/arrow_right_icon.svg')}}"
+            draggable="false"
+          />
+        </button>
       </div>
       <div class="results pop-out">
         {% if not error %}
@@ -97,11 +105,15 @@
       </footer>
     </div>
     <script>
+      const searchButtonDOM = document.querySelector("#search-button");
       const searchInputDOM = document.querySelector("#search-input");
+      searchButtonDOM.addEventListener("click", (e) => {
+        const query = searchInputDOM.value.trim();
+        location.replace(`?q=${encodeURIComponent(query)}`);
+      });
       searchInputDOM.addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
-          const query = searchInputDOM.value.trim();
-          location.replace(`?q=${encodeURIComponent(query)}`);
+          searchButtonDOM.click();
         }
       });
     </script>

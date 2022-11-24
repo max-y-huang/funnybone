@@ -21,18 +21,8 @@
   <body>
     <div class="app">
       <div>
-        <h1 class="title">
-          How
-          <div class="logo">
-            <span>FunnyBone</span>
-            <img
-              src="{{url_for('static', filename='assets/logo_icon.svg')}}"
-              draggable="false"
-            />
-          </div>
-          Works
-        </h1>
-        <h2>Funniness Scoring</h2>
+        <h1 class="title">How FunnyBone Works</h1>
+        <h3>Funniness Scoring</h3>
         <p>
           <span class="hl">
             FunnyBone uses AI to determine the funniness of a word. It starts
@@ -63,11 +53,11 @@
             >, a NLP research paper.
           </span>
         </p>
-        <h2>Web App Interactions</h2>
+        <h3>Web App Interactions</h3>
         <p>
           <span class="hl">
             The back-end for FunnyBone is a Flask app. When the page is loaded,
-            the app reads the user's prompt from the URL query string. It then
+            the app reads the user's prompt from the URL query string. Then it
             finds candidate outputs using the aforementioned Datamuse API and
             retrieves their funniness scores from the database. The 3 funniest
             words, along with the unfunniest word, are noted.
@@ -81,7 +71,7 @@
             query string, repeating the cycle.
           </span>
         </p>
-        <h2>Putting It Together</h2>
+        <h3>Putting It Together</h3>
         <p>
           <span class="hl">
             Here's a diagram of how everything fits together:

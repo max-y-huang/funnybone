@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Chewy&family=Pangolin&family=Permanent+Marker&display=swap");
 
+:root {
+  --app-padding: min(5vw, 5vh);
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -65,7 +69,7 @@ a {
   overflow-x: hidden;
   overflow-y: auto;
   margin: 0;
-  padding: 60px min(5vw, 5vh);
+  padding: 60px var(--app-padding);
   padding-bottom: 0;
   font-size: 20px;
   font-family: "Pangolin", sans-serif;
