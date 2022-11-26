@@ -3,10 +3,15 @@ import requests
 import json
 import urllib.parse
 from flask import Flask, request, render_template
+from google.cloud import storage
 
-_DB_SRC = "output.db"
+_DB_SRC = "gs://funnybone-369322.appspot.com/output.db"
 _ASPECT_KEYS = ["overall", "snd", "scatc", "clq", "inslt", "juxt", "sexc"]
 
+
+storage_client = storage.Client()
+bucket = storage_client.get_bucket("funnybone-369322.appspot.com")
+blob = bucket.get_blob("output.db")
 
 app = Flask(__name__)
 
@@ -21,7 +26,8 @@ def index():
     encoded_query = None if not query else urllib.parse.quote(query)
 
     # get funniest and unfunniest matches
-    db = sqlite3.connect(_DB_SRC)
+    # db = sqlite3.connect(_DB_SRC)
+    db = sqlite3.connect(blob)
     ranked_terms, _ = get_rankings(db, query)
     ranked_terms = list(map(lambda x: x.replace("_", " "), ranked_terms))
     funniest = ranked_terms[:3]

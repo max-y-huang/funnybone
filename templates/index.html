@@ -1,121 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="{{url_for('static', filename='assets/logo_icon.ico')}}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='styles/styles.css')}}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{url_for('static', filename='styles/index.css')}}"
-    />
-    {% if not error %}
-    <title>{{query}} | FunnyBone</title>
-    {% else %}
-    <title>FunnyBone Search Engine</title>
-    {% endif %}
-  </head>
-  <body>
-    <div class="app">
-      <div class="logo">
-        <span>FunnyBone</span>
-        <img
-          src="{{url_for('static', filename='assets/logo_icon.svg')}}"
-          draggable="false"
-        />
-      </div>
-      <div class="motto">
-        Feel the
-        <u class="error-squiggle">humor</u>
-        in your bones.
-      </div>
-      <div class="search-bar-container">
-        <div class="search-bar pop-out">
-          <div class="search-icon">
-            <img
-              src="{{url_for('static', filename='assets/search_icon.svg')}}"
-              draggable="false"
-            />
-          </div>
-          <input
-            type="text"
-            id="search-input"
-            placeholder="Search..."
-            value="{{query if query else ''}}"
-            autocomplete="off"
-          />
-        </div>
-        <button id="search-button" class="button pop-out">
-          <img
-            src="{{url_for('static', filename='assets/arrow_right_icon.svg')}}"
-            draggable="false"
-          />
-        </button>
-      </div>
-      <div class="results pop-out">
-        {% if not error %}
-        <div class="query">{{query}}</div>
-        <div class="funny">
-          <span class="header">Funniest</span>
-          <ul>
-            {% for term in funniest %}
-            <li>{{term}}</li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="not-funny">
-          <span class="header">Unfunniest</span>
-          <ul>
-            {% for term in unfunniest %}
-            <li>{{term}}</li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="more-info">
-          More info
-          <a
-            href="https://onelook.com/thesaurus/?s={{encoded_query}}&sortby=hu1"
-            target="_blank"
-            >here</a
-          >.
-        </div>
-        {% elif not query %}
-        <div class="help-text"></div>
-        {% else %}
-        <div class="error">{{query if query else ''}}</div>
-        {% endif %}
-      </div>
-      <div class="spacer"></div>
-      <footer>
-        <ul>
-          <li>
-            <a href="/about">About FunnyBone</a>
-          </li>
-          <li>
-            <a href="/how-it-works">How it works</a>
-          </li>
-        </ul>
-      </footer>
+{% extends "base.html" %}
+<!-- head -->
+{% block head %}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='styles/index.css')}}"
+/>
+{% if not error %}
+<title>{{query}} | FunnyBone</title>
+{% else %}
+<title>FunnyBone Search Engine</title>
+{% endif %}
+<!-- /head -->
+{% endblock %}
+<!-- body -->
+{% block body %}
+<div class="logo">
+  <span>FunnyBone</span>
+  <img
+    src="{{url_for('static', filename='assets/logo_icon.svg')}}"
+    draggable="false"
+  />
+</div>
+<div class="motto">
+  Feel the
+  <u class="error-squiggle">humor</u>
+  in your bones.
+</div>
+<div class="search-bar-container">
+  <div class="search-bar pop-out">
+    <div class="search-icon">
+      <img
+        src="{{url_for('static', filename='assets/search_icon.svg')}}"
+        draggable="false"
+      />
     </div>
-    <script>
-      const searchButtonDOM = document.querySelector("#search-button");
-      const searchInputDOM = document.querySelector("#search-input");
-      searchButtonDOM.addEventListener("click", (e) => {
-        const query = searchInputDOM.value.trim();
-        location.replace(`?q=${encodeURIComponent(query)}`);
-      });
-      searchInputDOM.addEventListener("keyup", (e) => {
-        if (e.key === "Enter") {
-          searchButtonDOM.click();
-        }
-      });
-    </script>
-  </body>
-</html>
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search..."
+      value="{{query if query else ''}}"
+      autocomplete="off"
+    />
+  </div>
+  <button id="search-button" class="button pop-out">
+    <img
+      src="{{url_for('static', filename='assets/arrow_right_icon.svg')}}"
+      draggable="false"
+    />
+  </button>
+</div>
+<div class="results pop-out">
+  {% if not error %}
+  <div class="query">{{query}}</div>
+  <div class="funny">
+    <span class="header">Funniest</span>
+    <ul>
+      {% for term in funniest %}
+      <li>{{term}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="not-funny">
+    <span class="header">Unfunniest</span>
+    <ul>
+      {% for term in unfunniest %}
+      <li>{{term}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="more-info">
+    More info
+    <a
+      href="https://onelook.com/thesaurus/?s={{encoded_query}}&sortby=hu1"
+      target="_blank"
+      >here</a
+    >.
+  </div>
+  {% elif not query %}
+  <div class="help-text"></div>
+  {% else %}
+  <div class="error">{{query if query else ''}}</div>
+  {% endif %}
+</div>
+<div class="spacer"></div>
+<footer>
+  <ul>
+    <li>
+      <a href="/about">About FunnyBone</a>
+    </li>
+    <li>
+      <a href="/how-it-works">How it works</a>
+    </li>
+  </ul>
+</footer>
+<script>
+  const searchButtonDOM = document.querySelector("#search-button");
+  const searchInputDOM = document.querySelector("#search-input");
+
+  searchButtonDOM.addEventListener("click", (e) => {
+    const query = searchInputDOM.value.trim();
+    location.replace(`?q=${encodeURIComponent(query)}`);
+  });
+
+  searchInputDOM.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+      searchButtonDOM.click();
+    }
+  });
+
+  window.addEventListener("load", (e) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("q") === null) {
+      searchInputDOM.focus();
+    }
+  });
+</script>
+<!-- /body -->
+{% endblock %}
