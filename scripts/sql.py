@@ -1,13 +1,20 @@
+import os
+import json
 import sqlalchemy
+
+__dir__ = os.path.dirname(os.path.realpath(__file__))
 
 
 def get_conn(connector):
+    with open(f"{__dir__}/../config/db_credentials.json") as f:
+        cred = json.load(f)
+
     conn = connector.connect(
-        "funnybone-369322:us-east1:humour-rankings",
-        "pg8000",
-        user="postgres",
-        password='A^E@%"d>iT2s2g+g',
-        db="postgres",
+        cred["connection_name"],
+        cred["db_driver"],
+        user=cred["user"],
+        password=cred["password"],
+        db=cred["db"],
     )
     return conn
 

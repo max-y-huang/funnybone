@@ -1,12 +1,9 @@
-import os
 import requests
 import json
 import urllib.parse
 from flask import Flask, request, render_template
 from google.cloud.sql.connector import Connector
 from scripts.sql import get_pool
-
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "config/gcp_credentials.json"
 
 
 app = Flask(__name__)
