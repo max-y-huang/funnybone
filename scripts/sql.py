@@ -1,9 +1,7 @@
-import os
 import sqlalchemy
 
 
 def get_conn(connector):
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "../config/gcp_credentials.json"
     conn = connector.connect(
         "funnybone-369322:us-east1:humour-rankings",
         "pg8000",

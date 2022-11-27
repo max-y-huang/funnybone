@@ -6,7 +6,5 @@ Pipfile
 Pipfile.lock
 
 data/*
-output.json
-output.db
-*.words
-out.html
+config/*
+output.csv

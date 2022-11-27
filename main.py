@@ -1,4 +1,4 @@
-import sqlite3
+import os
 import requests
 import json
 import urllib.parse
@@ -6,10 +6,7 @@ from flask import Flask, request, render_template
 from google.cloud.sql.connector import Connector
 from scripts.sql import get_pool
 
-from pymongo import MongoClient
-
-
-_DB_SRC = "output.db"
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "config/gcp_credentials.json"
 
 
 app = Flask(__name__)
@@ -25,8 +22,7 @@ def index():
     encoded_query = None if not query else urllib.parse.quote(query)
 
     # get funniest and unfunniest matches
-    db = sqlite3.connect(_DB_SRC)
-    ranked_terms, _ = get_rankings(db, query)
+    ranked_terms, _ = get_rankings(query)
     ranked_terms = list(map(lambda x: x.replace("_", " "), ranked_terms))
     funniest = ranked_terms[:3]
     unfunniest = ranked_terms[-1:]
@@ -54,7 +50,7 @@ def how_it_works():
     return render_template("how_it_works.html")
 
 
-def get_rankings(db, term):
+def get_rankings(term):
     if not term:
         return ([], [])  # throws error
 
@@ -68,21 +64,13 @@ def get_rankings(db, term):
     if term.lower().replace(" ", "_") in filter_words:
         return ([], [])  # throws error
 
-    client = MongoClient(
-        "mongodb+srv://dbUser:XW3e3DEkplfqhBYy@cluster0.rnwa7.mongodb.net/?retryWrites=true&w=majority"
-    )
-    ratings = {
-        item["term"]: item["score"]
-        for item in client.funnybone.terms.find({"term": {"$in": similar_terms}})
-    }
-
-    # connector = Connector()
-    # pool = get_pool(connector)
-    # with pool.connect() as c:
-    #     c.execute(f'SELECT * FROM Terms WHERE term IN ({", ".join(similar_terms)});')
-    # connector.close()
-
-    # ratings = {key: val for key, val in c.fetchall()}
+    connector = Connector()
+    pool = get_pool(connector)
+    with pool.connect() as c:
+        terms_list = ", ".join([f"'{t}'" for t in similar_terms])
+        res = c.execute(f"SELECT * FROM Terms WHERE term IN ({terms_list});")
+        ratings = {key: val for key, val in res.fetchall()}
+    connector.close()
 
     unranked_terms = list(filter(lambda t: not (t in ratings), similar_terms))
     ranked_terms = list(filter(lambda t: t in ratings, similar_terms))
