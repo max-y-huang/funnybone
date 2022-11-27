@@ -3,15 +3,14 @@ import requests
 import json
 import urllib.parse
 from flask import Flask, request, render_template
-from google.cloud import storage
+from google.cloud.sql.connector import Connector
+from scripts.sql import get_pool
 
-_DB_SRC = "https://storage.googleapis.com/funnybone-369322.appspot.com/output.db"
-_ASPECT_KEYS = ["overall", "snd", "scatc", "clq", "inslt", "juxt", "sexc"]
+from pymongo import MongoClient
 
 
-# storage_client = storage.Client()
-# bucket = storage_client.get_bucket("funnybone-369322.appspot.com")
-# blob = bucket.get_blob("output.db")
+_DB_SRC = "output.db"
+
 
 app = Flask(__name__)
 
@@ -55,7 +54,7 @@ def how_it_works():
     return render_template("how_it_works.html")
 
 
-def get_rankings(db, term, aspect="overall"):
+def get_rankings(db, term):
     if not term:
         return ([], [])  # throws error
 
@@ -69,20 +68,25 @@ def get_rankings(db, term, aspect="overall"):
     if term.lower().replace(" ", "_") in filter_words:
         return ([], [])  # throws error
 
-    c = db.cursor()
-    c.execute(
-        f'SELECT * FROM terms WHERE term IN ({", ".join("?" * len(similar_terms))})',
-        similar_terms,
+    client = MongoClient(
+        "mongodb+srv://dbUser:XW3e3DEkplfqhBYy@cluster0.rnwa7.mongodb.net/?retryWrites=true&w=majority"
     )
-
     ratings = {
-        item[0]: {key: item[i] for i, key in enumerate(_ASPECT_KEYS, start=1)}
-        for item in c.fetchall()
+        item["term"]: item["score"]
+        for item in client.funnybone.terms.find({"term": {"$in": similar_terms}})
     }
+
+    # connector = Connector()
+    # pool = get_pool(connector)
+    # with pool.connect() as c:
+    #     c.execute(f'SELECT * FROM Terms WHERE term IN ({", ".join(similar_terms)});')
+    # connector.close()
+
+    # ratings = {key: val for key, val in c.fetchall()}
 
     unranked_terms = list(filter(lambda t: not (t in ratings), similar_terms))
     ranked_terms = list(filter(lambda t: t in ratings, similar_terms))
-    ranked_terms = sorted(ranked_terms, key=lambda t: ratings[t][aspect], reverse=True)
+    ranked_terms = sorted(ranked_terms, key=lambda t: ratings[t], reverse=True)
     return (ranked_terms, unranked_terms)
 
 
