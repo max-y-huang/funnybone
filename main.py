@@ -50,7 +50,7 @@ def how_it_works():
 
 def get_rankings(term):
     if not term:
-        return ([], [])  # throws error
+        return []  # throws error
 
     response_API = requests.get(f"https://api.datamuse.com/words?ml={term}")
     similar_terms = [
@@ -60,7 +60,7 @@ def get_rankings(term):
     filter_words = get_filter_words()
     similar_terms = list(filter(lambda t: not t in filter_words, similar_terms))
     if term.lower().replace(" ", "_") in filter_words:
-        return ([], [])  # throws error
+        return []  # throws error
 
     conn = sqlite3.connect(_DB_SRC)
     c = conn.cursor()
