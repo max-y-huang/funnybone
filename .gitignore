@@ -7,5 +7,5 @@ Pipfile
 Pipfile.lock
 
 data/*
-config/*
-output.csv
+output.json
+output.db
