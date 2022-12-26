@@ -70,8 +70,6 @@
   background: none;
   outline: none;
   border: none;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 .search-icon > img {
@@ -79,6 +77,8 @@
   height: 16px;
   padding: 12px;
   filter: brightness(0);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #search-button {
@@ -100,6 +100,8 @@
   height: 16px;
   filter: brightness(0);
   transform: rotate(-15deg);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .results {

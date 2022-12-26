@@ -65,7 +65,7 @@ def get_rankings(term):
     conn = sqlite3.connect(_DB_SRC)
     c = conn.cursor()
 
-    terms_list = ", ".join([f"'{t}'" for t in similar_terms])
+    terms_list = ", ".join([f"'{t}'" for t in similar_terms if not "'" in t])
     res = c.execute(f"SELECT * FROM Terms WHERE term IN ({terms_list});")
     ratings = {key: val for key, val in res.fetchall()}
 
